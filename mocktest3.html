@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEPT - Mock Test 3 (Skill Focused)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mocktest3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <!-- ==================== SCROLLING ANNOUNCEMENT BAR ==================== -->
+    <div class="announcement-bar">
+        <div class="announcement-text">
+            <span>📢 သင်တန်းကျောင်းများ မိမိသင်တန်းအတွက် (သို့) အလုပ်အတွက် လိုအပ်သော Software များ ပြုလုပ်လိုပါက Telegram မှတစ်ဆင့် ဆက်သွယ်ပြုလုပ်နိုင်ပါသည်။ <a href="https://t.me/devppk" target="_blank">@devppk</a></span>
+            <span>📢 သင်တန်းကျောင်းများ မိမိသင်တန်းအတွက် (သို့) အလုပ်အတွက် လိုအပ်သော Software များ ပြုလုပ်လိုပါက Telegram မှတစ်ဆင့် ဆက်သွယ်ပြုလုပ်နိုင်ပါသည်။ <a href="https://t.me/devppk" target="_blank">@devppk</a></span>
+        </div>
+    </div>
+
+    <!-- ==================== LOGIN SCREEN ==================== -->
+    <div id="examAuth" class="exam-auth-container">
+        <div class="exam-auth-card">
+            <div class="exam-logo">⚓</div>
+            <h1>Mock Test 3 – Skill Focused Exam</h1>
+            <p style="color:#666; margin-bottom:10px;">MEPT Preparation Portal & Mock Test Platform</p>
+            <div class="exam-features">
+                <div class="feature-item">
+                    <span class="feature-icon">🎲</span>
+                    <span><strong>Random Questions (3 Sets)</strong><br>တစ်ကြိမ်ဖြေတိုင်း မေးခွန်းများ ပြောင်းလဲပါသည်</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⏱️</span>
+                    <span><strong>90 Minutes Timed Mock Test</strong><br>စာမေးပွဲအစစ်ကဲ့သို့ အချိန်ကန့်သတ်ချက်ဖြင့် ဖြေဆိုရမည်</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📋</span>
+                    <span><strong>4 Skills Focused</strong><br>Reading • Listening • Writing • Speaking</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🏆</span>
+                    <span><strong>Instant Score Report</strong><br>ရလဒ်ကို ချက်ချင်းကြည့်ရှုနိုင်ပြီး PDF ဒေါင်းလုဒ်ရယူနိုင်</span>
+                </div>
+            </div>
+
+            <!-- Sample Score Report -->
+            <div class="cert-preview">
+                <h4>📜  Score Report</h4>
+                <div class="mock-cert-card">
+                    <div class="cert-header">
+                        <span class="cert-logo">⚓</span>
+                        <span class="cert-title">MEPT Mock Test Score Report</span>
+                    </div>
+                    <div class="cert-body">
+                        <div class="cert-score-circle">
+                            <span class="cert-big-score">80%</span>
+                            <span class="cert-label">Grade A (Excellent)</span>
+                        </div>
+                        <div class="cert-details">
+                            <div class="cert-row"><span>📖 Language Use</span><span class="cert-score">8 / 10</span></div>
+                            <div class="cert-row"><span>📰 Reading</span><span class="cert-score">18 / 25</span></div>
+                            <div class="cert-row"><span>🎧 Listening</span><span class="cert-score">18 / 25</span></div>
+                            <div class="cert-row"><span>✍️ Writing</span><span class="cert-score">18 / 20</span></div>
+                            <div class="cert-row"><span>🗣️ Speaking</span><span class="cert-score">18 / 20</span></div>
+                            <div class="cert-total"><span>🎯 Total Score</span><span class="cert-score">80 / 100</span></div>
+                        </div>
+                    </div>
+                    <p class="cert-disclaimer">* This is a mock test score for self-assessment only</p>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="login-form">
+                <h3>🔐 နမူနာစာမေးပွဲ စတင်ရန် Account ဖြင့်ဝင်ပါ</h3>
+                <div class="input-group"><label>👤 Username</label><input type="text" id="loginUsername" class="login-input" placeholder="Enter username"></div>
+                <div class="input-group"><label>🔑 Key</label><input type="password" id="loginKey" class="login-input" placeholder="Enter key"></div>
+                <button class="login-btn" onclick="startExam()">🔓 Start Mock Test</button>
+                <p style="margin-top:15px;font-size:0.85rem;color:#999;">Account မရှိပါက <a href="https://t.me/devppk" target="_blank">@devppk</a> သို့ ဆက်သွယ်ပါ</p>
+                <div id="loginStatus" style="margin-top:10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== EXAM CONTENT ==================== -->
+    <div id="examContent" class="container" style="display:none;">
+        <header>
+            <div class="header-content">
+                <h1>⚓ MEPT Preparation Portal & Mock Test Platform</h1>
+                <p>Mock Test 3 – Skill Focused Practice Exam (Self-Assessment)</p>
+            </div>
+        </header>
+        <main>
+            <div class="disclaimer-banner">
+                <p>⚠️ <strong>အသိပေးချက်:</strong> ဤစာမေးပွဲသည် လေ့ကျင့်ရန်အတွက်သာ ဖြစ်ပြီး တရားဝင် MEPT စာမေးပွဲမဟုတ်ပါ။ ရမှတ်များသည် မိမိကိုယ်ကို အကဲဖြတ်ရန်အတွက်သာ ဖြစ်ပါသည်။</p>
+            </div>
+            <div class="timer-bar"><span id="timer">⏱️ 90:00</span></div>
+
+            <div class="card"><div class="section-header"><h2>📖 SECTION I: Language Use (Grammar & Vocabulary)</h2><span class="badge">10 Marks</span></div><div id="grammarQuestions" class="question-container"></div></div>
+            <div class="card"><div class="section-header"><h2>📰 SECTION II: Reading Comprehension</h2><span class="badge">25 Marks</span></div><div id="readingQuestions" class="question-container"></div></div>
+            <div class="card"><div class="section-header"><h2>🎧 SECTION III: Listening</h2><span class="badge">25 Marks</span></div><div id="listeningQuestions" class="question-container"></div></div>
+            <div class="card"><div class="section-header"><h2>✍️ SECTION IV: Writing</h2><span class="badge">20 Marks</span></div><div id="writingQuestions" class="question-container"></div></div>
+            <div class="card"><div class="section-header"><h2>🗣️ SECTION V: Speaking</h2><span class="badge">20 Marks</span></div><div id="speakingQuestions" class="question-container"></div></div>
+
+            <button class="submit-btn" onclick="submitExam()">📝 Submit All Answers</button>
+            <div id="examResult" class="result-box" style="display:none;"></div>
+        </main>
+        <footer>
+            <div class="disclaimer-banner">
+                <p>⚠️ MEPT Practice Portal is an independent preparation platform. We are not affiliated with any official maritime examination body. Results are for self-assessment only.</p>
+            </div>
+            <p>⚓ MEPT Preparation Portal & Mock Test Platform</p>
+            <p style="font-size:0.8rem;color:#777;">&copy; 2026 | Created by Zello | <a href="https://t.me/devppk" style="color:#3282b8;">@devppk</a></p>
+        </footer>
+    </div>
+
+    <script src="mocktest3.js"></script>
+</body>
+</html>

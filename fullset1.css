@@ -1,0 +1,335 @@
+/* ==================== LOGIN SCREEN ==================== */
+.exam-auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1b262c, #0f4c75);
+    padding: 20px;
+}
+
+.exam-auth-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    max-width: 600px;
+    width: 100%;
+}
+
+.exam-auth-card h1 {
+    color: #0f4c75;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.exam-logo {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+/* Features Section */
+.exam-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+}
+
+/* Certificate Preview */
+.cert-preview {
+    background: #f0f7fb;
+    padding: 20px;
+    border-radius: 16px;
+    margin: 20px 0;
+    border: 1px solid #d1e7f5;
+}
+
+.cert-preview h4 {
+    color: #0f4c75;
+    margin-bottom: 15px;
+}
+
+.cert-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.cert-score-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0f4c75, #3282b8);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 auto 15px;
+}
+
+/* Login Form */
+.login-form {
+    margin-top: 20px;
+}
+
+.login-form h3 {
+    color: #0f4c75;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-input {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 2px solid #e1e1e1;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.login-input:focus {
+    border-color: #3282b8;
+}
+
+.login-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #0f4c75, #3282b8);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 5px;
+}
+
+.login-btn:hover {
+    background: #0f4c75;
+    transform: translateY(-2px);
+}
+
+/* Timer Bar (ပုံမှန်အတိုင်း) */
+.timer-bar {
+    background: #0f4c75;
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+}
+.disclaimer-banner {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #856404;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--primary-dark);
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-top: 40px;
+}
+/* ==================== MOCK CERTIFICATE CARD ==================== */
+.cert-preview {
+    margin: 20px 0;
+}
+
+.cert-preview h4 {
+    color: #0f4c75;
+    margin-bottom: 15px;
+}
+
+.mock-cert-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border: 2px solid #e0e7ef;
+    position: relative;
+    overflow: hidden;
+}
+
+.mock-cert-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #0f4c75, #3282b8, #0f4c75);
+}
+
+.cert-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #d1e0f0;
+}
+
+.cert-logo {
+    font-size: 2rem;
+}
+
+.cert-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #0f4c75;
+}
+
+.cert-body {
+    text-align: center;
+}
+
+.cert-score-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0f4c75, #3282b8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 20px rgba(15,76,117,0.3);
+}
+
+.cert-big-score {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.cert-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+    margin-top: 3px;
+}
+
+.cert-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.cert-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.cert-score {
+    font-weight: 700;
+    color: #0f4c75;
+}
+
+.cert-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background: #eef5fa;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0f4c75;
+    border: 1px solid #d1e0f0;
+}
+
+.cert-disclaimer {
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 15px;
+    text-align: center;
+}
+/* Responsive */
+@media (max-width: 600px) {
+    .exam-features {
+        grid-template-columns: 1fr;
+    }
+    .exam-auth-card {
+        padding: 20px;
+    }
+}
+
+@media print {
+    /* တခြားအရာအားလုံးကို ဖျောက် */
+    body * {
+        visibility: hidden;
+    }
+    /* result card ကိုပဲ ပြမယ် */
+    #resultCard, #resultCard * {
+        visibility: visible;
+    }
+    #resultCard {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #fff !important;
+        margin: 0;
+        padding: 20px;
+    }
+    .download-btn {
+        display: none !important;
+    }
+    header, footer, .timer-bar, .announcement-bar, .tabs {
+        display: none !important;
+    }
+}

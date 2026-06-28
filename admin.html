@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEPT - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="adminAuth" class="admin-auth-container">
+        <div class="admin-auth-card">
+            <h2>🔐 Admin Login</h2>
+            <div class="input-group"><label>👤 Username</label><input type="text" id="adminUsername" placeholder="Enter admin username" class="admin-input"></div>
+            <div class="input-group"><label>🔑 Password</label><input type="password" id="adminPassword" placeholder="Enter admin password" class="admin-input"></div>
+            <button class="admin-btn" onclick="adminLogin()">Login</button>
+        </div>
+    </div>
+
+    <div id="adminPanel" class="container" style="display:none;">
+        <header><div class="header-content"><h1>⚓ MEPT Admin Panel</h1><button class="logout-btn" onclick="adminLogout()">Logout</button></div></header>
+        <main>
+            <div class="card">
+                <h2>👥 User Management</h2>
+                <div class="add-user-form">
+                    <h3>Add New Student</h3>
+                    <div class="form-row">
+                        <input type="text" id="newUsername" placeholder="Username" class="admin-input">
+                        <input type="password" id="newPassword" placeholder="Password" class="admin-input">
+                        <input type="date" id="expireDate" class="admin-input">
+                        <button class="admin-btn" onclick="addUser()">➕ Add Student</button>
+                    </div>
+                </div>
+                <h3>📋 Student List</h3>
+                <div id="userTable" class="user-table"></div>
+            </div>
+            <div class="card">
+                <h2>📊 Statistics</h2>
+                <div id="statsContainer" class="stats-grid"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
