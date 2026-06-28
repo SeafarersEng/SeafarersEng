@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEPT - Maritime English Proficiency Test</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="MEPT">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ==================== Scrolling Announcement Bar ==================== -->
+    <div class="announcement-bar">
+        <div class="announcement-text">
+            <span>📢 သင်တန်းကျောင်းများ မိမိသင်တန်းအတွက် (သို့) အလုပ်အတွက် လိုအပ်သော Software များ ပြုလုပ်လိုပါက Telegram မှတစ်ဆင့် ဆက်သွယ်ပြုလုပ်နိုင်ပါသည်။ <a href="https://t.me/devppk" target="_blank">@devppk</a></span>
+            <!-- Duplicate for seamless scroll -->
+            <span>📢 သင်တန်းကျောင်းများ မိမိသင်တန်းအတွက် (သို့) အလုပ်အတွက် လိုအပ်သော Software များ ပြုလုပ်လိုပါက Telegram မှတစ်ဆင့် ဆက်သွယ်ပြုလုပ်နိုင်ပါသည်။ <a href="https://t.me/devppk" target="_blank">@devppk</a></span>
+        </div>
+    </div>
+    <header>
+        <div class="header-content">
+            <h1>⚓ MEPT Preparation Portal & Mock Test Platform</h1>
+            <p>Maritime English Self-Assessment & Preparation Platform</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="mept-info">
+            <div class="info-card"><h3>❓ MEPT ဆိုတာဘာလဲ ?</h3><p>MEPT သည် ရေကြောင်းလောကသို့ ဝင်ရောက်မည့် <strong>သင်္ဘောသားများ</strong>၏ ရေကြောင်းသုံး အင်္ဂလိပ်စာ အရည်အချင်းကို စစ်ဆေးသည့် စာမေးပွဲဖြစ်ပါသည်။</p></div>
+            <div class="info-card"><h3>🎯 ဘာကြောင့် ဖြေဆိုရတာလဲ ?</h3><p><strong>STCW စည်းမျဉ်းများ</strong>အား နားလည်ပြီး <strong>ဘေးအန္တရာယ်ကင်းရှင်းရေး</strong>နှင့် <strong>ရေကြောင်းဆက်သွယ်ရေး</strong>အတွက် ဖြစ်ပါသည်။</p></div>
+            <div class="info-card"><h3>📝 ဘာတွေဖြေဆိုရမလဲ ?</h3><p>📖 Grammar (20) | 📰 Reading (10) | 🎧 Listening (12) | ✍️ Writing (2 Tasks) | 🗣️ Speaking (22)</p></div>
+        </section>
+
+        <div class="fullset-bar">
+            <span class="fullset-title">📚 Full Set Exams(MEPT Mock Test Platform)</span>
+            <div class="btn-group">
+                <a href="fullset1.html" class="btn-fullset">Mock Test 1</a>
+                <a href="mocktest2.html" class="btn-fullset">Mock Test 2</a>
+                <a href="mocktest3.html" class="btn-fullset">Mock Test 3</a>
+                <a href="mocktest4.html" class="btn-fullset">Mock Test 4</a>
+                <a href="mocktest5.html" class="btn-fullset">Mock Test 5</a>
+            </div>
+        </div>
+
+        <section class="preview-section" id="previewSection">
+            <h2 class="preview-title">📚 Practice Sections</h2>
+            <p class="preview-subtitle">အောက်ပါ Sections များမှ နမူနာမေးခွန်းများကို စမ်းသပ်ဖြေဆိုနိုင်ပါသည်</p>
+            <div class="preview-grid">
+                <div class="preview-card" onclick="openDemo('grammar')">
+                    <div class="preview-icon">📖</div><h3>Grammar & Vocabulary</h3><p>Set 1 နမူနာ 20 ပုဒ် စမ်းဖြေပါ</p>
+                    <div class="preview-sample"><p><strong>Sample:</strong> "The crew ___ the deck every morning."</p><p style="color:var(--success);">a) cleans</p></div>
+                    <button class="preview-btn">🚀 Try Sample</button>
+                </div>
+                <div class="preview-card" onclick="openDemo('reading')">
+                    <div class="preview-icon">📰</div><h3>Reading Comprehension</h3><p>Set 1 စာပိုဒ်များကို True/False ဖြေပါ</p>
+                    <div class="preview-sample"><p><strong>Sample:</strong> Fire drill passage</p><p style="color:var(--success);">Q: The drill at 3:30 pm? → True</p></div>
+                    <button class="preview-btn">🚀 Try Sample</button>
+                </div>
+                <div class="preview-card" onclick="openDemo('listening')">
+                    <div class="preview-icon">🎧</div><h3>Listening Comprehension</h3><p>Set 1 အသံဖိုင်နားထောင်ပြီး ဖြေပါ</p>
+                    <div class="preview-sample"><p><strong>Sample Audio:</strong> "Bridge to Deck..."</p><p style="color:var(--success);">Stop chipping, prepare anchor</p></div>
+                    <button class="preview-btn">🚀 Try Sample</button>
+                </div>
+                <div class="preview-card" onclick="openDemo('writing')">
+                    <div class="preview-icon">✍️</div><h3>Writing Tasks</h3><p>Set 1 မှ Short Message နှင့် Paragraph ရေးပါ</p>
+                    <div class="preview-sample"><p><strong>Task:</strong> Report loose refrigerator latch</p><p style="color:var(--success);">Keywords: safety, latch, repair</p></div>
+                    <button class="preview-btn">🚀 Try Sample</button>
+                </div>
+                <div class="preview-card" onclick="openDemo('speaking')">
+                    <div class="preview-icon">🗣️</div><h3>Speaking Practice</h3><p>Set 1 မေးခွန်း 22 ခုကို စာဖြင့်ဖြေဆိုပါ</p>
+                    <div class="preview-sample"><p><strong>Q:</strong> "Your career in 10 years?"</p><p style="color:var(--success);">Keywords: captain, officer</p></div>
+                    <button class="preview-btn">🚀 Try Sample</button>
+                </div>
+            </div>
+        </section>
+        <!-- ==================== SAMPLE CERTIFICATE PREVIEW ==================== -->
+<div class="cert-preview-section">
+    <h2 class="preview-title">🏆 Preview Certificate</h2>
+    <p class="preview-subtitle">Mock Test ဖြေဆိုပြီးပါက ရရှိမည့် Certificate ပုံစံ</p>
+    <div class="cert-preview">
+        <div class="mock-cert-card">
+            <div class="cert-header">
+                <span class="cert-logo">⚓</span>
+                <span class="cert-title">MEPT Mock Test Certificate</span>
+            </div>
+            <div class="cert-body">
+                <div class="cert-score-circle">
+                    <span class="cert-big-score">82%</span>
+                    <span class="cert-label">Score: 82/100</span>
+                </div>
+                <div class="cert-details">
+                    <div class="cert-row"><span>Candidate</span><span class="cert-score">Student Name</span></div>
+                    <div class="cert-row"><span>CEFR Level</span><span class="cert-score">B2 (Upper Intermediate)</span></div>
+                    <div class="cert-row">
+                        <span>Grade</span>
+                        <span class="cert-score" style="font-size:1.3rem; color:#0f4c75; font-weight:800;">A</span>
+                    </div>
+                    <div class="cert-row"><span>Result</span><span class="cert-score" style="color:#28a745;">PASS</span></div>
+                    <div class="cert-row"><span>Date</span><span class="cert-score">01 Jan 2026</span></div>
+                    <div class="cert-total"><span>Total Score</span><span class="cert-score">82 / 100</span></div>
+                </div>
+                <div style="text-align:center; margin-top:15px;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=MEPT%20Mock%20Test%20Sample" alt="QR Code" style="width:100px;height:100px;">
+                </div>
+            </div>
+            <p class="cert-disclaimer">* This is a mock test certificate for self-assessment only</p>
+        </div>
+    </div>
+</div>
+        <section class="demo-section" id="demoSection" style="display:none;">
+            <div class="demo-header"><button class="back-btn" onclick="closeDemo()">⬅ Back to Sections</button><h2 id="demoTitle">📖 Grammar Demo</h2></div>
+            <div id="demoQuestions" class="question-container"></div>
+            <button id="demoSubmitBtn" class="submit-btn">✔️ Submit & See Result</button>
+            <div id="demoResult" class="result-box" style="display:none;"></div>
+            <div id="demoPremiumBanner" class="premium-banner" style="display:none;">
+                <h4>🚀 Want More Practice?</h4><p>Set 2-5 အပြည့်အစုံကို Account ဖွင့်ပြီး လေ့လာနိုင်ပါသည်။</p>
+                <a href="https://t.me/devppk" class="premium-btn" target="_blank">💎 Account ဖွင့်ရန် @devppk</a>
+            </div>
+        </section>
+
+        <div id="loginSection" class="login-section">
+            <div class="login-card">
+                <h3>🔐 Login to Practice All Sections</h3>
+                <p style="color:#666;margin-bottom:15px;">သင့် Username နှင့် Key ထည့်သွင်းပါ</p>
+                <div class="input-group"><label>👤 Username</label><input type="text" id="loginUsername" placeholder="Enter username" class="login-input"></div>
+                <div class="input-group"><label>🔑 Key</label><input type="password" id="loginKey" placeholder="Enter key" class="login-input"></div>
+                <button class="login-btn" onclick="userLogin()">🔓 Unlock All Sections</button>
+                <p style="margin-top:15px;font-size:0.85rem;color:#999;">Account မရှိပါက <a href="https://t.me/devppk" target="_blank">@devppk</a> သို့ ဆက်သွယ်ပါ၍ Account ဖွင့်ပြီး Username & Key ကိုအသုံးပြုနိုင်ပါသည်။</p>
+                <div id="loginStatus" style="margin-top:10px;"></div>
+            </div>
+        </div>
+
+        <div id="practiceSection" style="display:none;">
+            <div id="userInfo" class="user-info-bar"></div>
+            <div id="premiumUnlockedMsg" class="premium-unlocked-msg" style="display:none;">
+                <p>✅ <strong>Account ဖွင့်ပြီးပါပြီ။ မေးခွန်းအားလုံးကို အကန့်အသတ်မရှိ ဖြေဆိုနိုင်ပါပြီ။</strong></p>
+                <p style="font-size:0.9rem;">အကူအညီလိုပါက <a href="https://t.me/devppk" target="_blank">@devppk</a> သို့ ဆက်သွယ်ပါ။</p>
+            </div>
+            <nav class="tabs">
+                <button class="tab-btn active" data-tab="grammar">📖 Grammar</button>
+                <button class="tab-btn" data-tab="reading">📰 Reading</button>
+                <button class="tab-btn" data-tab="writing">✍️ Writing</button>
+                <button class="tab-btn" data-tab="listening">🎧 Listening</button>
+                <button class="tab-btn" data-tab="speaking">🗣️ Speaking</button>
+            </nav>
+            <div class="content-wrapper">
+                <!-- Grammar Tab -->
+                <div id="grammar" class="tab-content active">
+                    <div class="section-header"><h2>📖 Grammar & Vocabulary</h2><span class="badge">20 Qs/Set</span></div>
+                    <div id="grammarSetSelection" class="set-selection"><p>👇 ဖြေဆိုလိုသော Set ကို ရွေးချယ်ပါ</p><div class="set-buttons" id="grammarSetButtons"></div></div>
+                    <div id="grammarQuestions" class="question-container" style="display:none;"></div>
+                    <button id="grammarBackBtn" class="back-btn" style="display:none;" onclick="backToSets('grammar')">⬅ Back to Sets</button>
+                    <button id="submitGrammarBtn" class="submit-btn" style="display:none;">✔️ Submit Answers</button>
+                    <div id="grammarResult" class="result-box"></div>
+                </div>
+                <!-- Reading Tab -->
+                <div id="reading" class="tab-content">
+                    <div class="section-header"><h2>📰 Reading Comprehension</h2><span class="badge">2 Passages</span></div>
+                    <div id="readingSetSelection" class="set-selection"><p>👇 ဖြေဆိုလိုသော Set ကို ရွေးချယ်ပါ</p><div class="set-buttons" id="readingSetButtons"></div></div>
+                    <div id="readingQuestions" class="question-container" style="display:none;"></div>
+                    <button id="readingBackBtn" class="back-btn" style="display:none;" onclick="backToSets('reading')">⬅ Back to Sets</button>
+                    <button id="submitReadingBtn" class="submit-btn" style="display:none;">✔️ Submit Answers</button>
+                    <div id="readingResult" class="result-box"></div>
+                </div>
+                <!-- Writing Tab -->
+                <div id="writing" class="tab-content">
+                    <div class="section-header"><h2>✍️ Writing Practice</h2><span class="badge">2 Tasks</span></div>
+                    <div id="writingSetSelection" class="set-selection"><p>👇 ဖြေဆိုလိုသော Set ကို ရွေးချယ်ပါ</p><div class="set-buttons" id="writingSetButtons"></div></div>
+                    <div id="writingQuestions" class="question-container" style="display:none;"></div>
+                    <button id="writingBackBtn" class="back-btn" style="display:none;" onclick="backToSets('writing')">⬅ Back to Sets</button>
+                    <button id="submitWritingBtn" class="submit-btn" style="display:none;">✔️ Submit & View Sample</button>
+                    <div id="writingResult" class="result-box"></div>
+                    <div id="writingSampleResult" class="result-box" style="display:none;"></div>
+                </div>
+                <!-- Listening Tab -->
+                <div id="listening" class="tab-content">
+                    <div class="section-header"><h2>🎧 Listening Comprehension</h2><span class="badge">12 Qs</span></div>
+                    <div id="listeningSetSelection" class="set-selection"><p>👇 ဖြေဆိုလိုသော Set ကို ရွေးချယ်ပါ</p><div class="set-buttons" id="listeningSetButtons"></div></div>
+                    <div id="listeningQuestions" class="question-container" style="display:none;"></div>
+                    <button id="listeningBackBtn" class="back-btn" style="display:none;" onclick="backToSets('listening')">⬅ Back to Sets</button>
+                    <button id="submitListeningBtn" class="submit-btn" style="display:none;">✔️ Submit Answers</button>
+                    <div id="listeningResult" class="result-box"></div>
+                </div>
+                <!-- Speaking Tab -->
+                <div id="speaking" class="tab-content">
+                    <div class="section-header"><h2>🗣️ Speaking Practice</h2><span class="badge">22 Qs</span></div>
+                    <div id="speakingSetSelection" class="set-selection"><p>👇 ဖြေဆိုလိုသော Set ကို ရွေးချယ်ပါ</p><div class="set-buttons" id="speakingSetButtons"></div></div>
+                    <div id="speakingQuestions" class="question-container" style="display:none;"></div>
+                    <button id="speakingBackBtn" class="back-btn" style="display:none;" onclick="backToSets('speaking')">⬅ Back to Sets</button>
+                    <button id="submitSpeakingBtn" class="submit-btn" style="display:none;">✔️ Submit & Grade</button>
+                    <div id="speakingResult" class="result-box"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+    <!-- Disclaimer Banner -->
+    <div class="disclaimer-banner">
+        <p>⚠️ <strong>အသိပေးချက်:</strong> MEPT Practice Portal သည် သီးခြားလေ့ကျင့်ရေး Platform တစ်ခုဖြစ်ပါသည်။  ရရှိသောရမှတ်များသည် မိမိကိုယ်ကို အကဲဖြတ်ရန်အတွက်သာ ဖြစ်ပါသည်။</p>
+        <p style="font-size:0.8rem; color:#777; margin-top:5px;">MEPT Practice Portal is an independent preparation platform. Results are for self-assessment only.</p>
+    </div>
+
+    <!-- Original Footer Content -->
+    <p>⚓ MEPT Preparation Portal</p>
+    
+    <p style="font-size:0.8rem;color:#777;">&copy; 2026 | Created by Zello | <a href="https://t.me/devppk" style="color:#3282b8;">@devppk</a> | <a href="admin.html" style="color:#c0392b;">Admin</a></p>
+</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
