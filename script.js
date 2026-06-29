@@ -1,35 +1,75 @@
 // ======================== MEPT FULL SYSTEM ========================
 const STORAGE_KEY = 'mept_all_users';
 
-// ======================== USER AUTH ========================
-// ======================== USER LOGIN (Subscriptions) ========================
+
+// ======================== SUBSCRIPTIONS (Student Accounts) ========================
+const subscriptions = {
+    "mts": { key: "mts@2026", startDate: "2026-06-01", expireDate: "2026-07-01", name: "mts" },
+    "student02": { key: "std02@2026", startDate: "2026-01-15", expireDate: "2026-02-15", name: "Student 02" },
+    "student03": { key: "std03@2026", startDate: "2026-02-01", expireDate: "2026-03-01", name: "Student 03" },
+    "student04": { key: "std04@2026", startDate: "2026-02-10", expireDate: "2026-03-10", name: "Student 04" },
+    "student05": { key: "std05@2026", startDate: "2026-03-01", expireDate: "2026-04-01", name: "Student 05" },
+    "student06": { key: "std06@2026", startDate: "2026-03-15", expireDate: "2026-04-15", name: "Student 06" },
+    "student07": { key: "std07@2026", startDate: "2026-04-01", expireDate: "2026-05-01", name: "Student 07" },
+    "student08": { key: "std08@2026", startDate: "2026-04-15", expireDate: "2026-05-15", name: "Student 08" },
+    "student09": { key: "std09@2026", startDate: "2026-05-01", expireDate: "2026-06-01", name: "Student 09" },
+    "student10": { key: "std10@2026", startDate: "2026-05-15", expireDate: "2026-06-15", name: "Student 10" },
+    // Admin account (can also login to practice)
+    "zkp": { key: "set1@2026", startDate: "2026-01-01", expireDate: "2030-12-31", name: "Admin" }
+};
+
+// ======================== USER LOGIN ========================
 function userLogin() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
+
     if (!username || !key) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ Username နှင့် Key ထည့်ပါ</p>';
         return;
     }
+
     const user = subscriptions[username];
+
     if (!user || user.key !== key) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username (သို့) Key မှားယွင်းနေပါသည်</p>';
         return;
     }
-    const today = new Date(); today.setHours(0,0,0,0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const start = new Date(user.startDate);
     const exp = new Date(user.expireDate);
+
     if (today < start) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ အကောင့်ကို ${user.startDate} မှ စတင်သုံးနိုင်ပါမည်</p>`;
         return;
     }
+
     if (today > exp) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ (${user.expireDate})</p>`;
         return;
     }
+
     const remainingDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
-    // Login Success - ကျန်တဲ့ UI code ကို ယခင်အတိုင်းဆက်ထားပါ
-    // ...
+
+    // Login Success
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('practiceSection').style.display = 'block';
+    document.getElementById('previewSection').style.display = 'none';
+    document.getElementById('premiumUnlockedMsg').style.display = 'block';
+
+    document.getElementById('userInfo').innerHTML = `
+        <span>👤 <strong>${user.name || username}</strong></span>
+        <span>📅 Expires: ${user.expireDate}</span>
+        <span>⏳ ${remainingDays} days left</span>
+        <button class="logout-btn" onclick="userLogout()">Logout</button>
+    `;
+
+    initAllSections();
 }
+
+// ======================== USER LOGOUT ========================
+
 function userLogout() {
     document.getElementById('loginSection').style.display = 'block';
     document.getElementById('practiceSection').style.display = 'none';
