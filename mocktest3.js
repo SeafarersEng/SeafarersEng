@@ -1,30 +1,52 @@
-// ======================== MEPT MOCK TEST 3 (SKILL FOCUSED) ========================
 const STORAGE_KEY = 'mept_all_users';
 
-// ======================== USER AUTH ========================
-function startExam() {
+async function startExam() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
+    
     if (!username || !key) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ Username နှင့် Key ထည့်ပါ</p>';
         return;
     }
-    const users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    const user = users.find(u => u.username === username && u.password === key);
+
+    let user = null;
+
+    try {
+        const response = await fetch('users.json');
+        const remoteUsers = await response.json();
+        user = remoteUsers.find(u => u.username === username && u.password === key);
+    } catch (e) {
+        console.log('users.json not available, trying localStorage...');
+    }
+
+    if (!user) {
+        const localUsers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        user = localUsers.find(u => u.username === username && u.password === key);
+    }
+
     if (!user) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username (သို့) Key မှားယွင်းနေပါသည်</p>';
         return;
     }
-    window.currentUsername = username;
-    const today = new Date(); today.setHours(0,0,0,0);
+
+    const today = new Date(); today.setHours(0, 0, 0, 0);
     const exp = new Date(user.expireDate);
-    if (today > exp) {
-        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ</p>';
+    const start = user.startDate ? new Date(user.startDate) : null;
+
+    if (start && today < start) {
+        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ အကောင့်ကို ${user.startDate} မှ စတင်သုံးနိုင်ပါမည်</p>`;
         return;
     }
+
+    if (today > exp) {
+        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ (${user.expireDate})</p>`;
+        return;
+    }
+
+    window.currentUsername = username;
     document.getElementById('examAuth').style.display = 'none';
     document.getElementById('examContent').style.display = 'block';
-    generateRandomExam();
+    loadFixedExam();
     startTimer(90);
 }
 
