@@ -2,6 +2,7 @@
 const STORAGE_KEY = 'mept_all_users';
 
 // ======================== USER AUTH ========================
+// ======================== USER LOGIN (Subscriptions) ========================
 function userLogin() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
@@ -9,30 +10,25 @@ function userLogin() {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ Username နှင့် Key ထည့်ပါ</p>';
         return;
     }
-    const users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    const user = users.find(u => u.username === username && u.password === key);
-    if (!user) {
+    const user = subscriptions[username];
+    if (!user || user.key !== key) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username (သို့) Key မှားယွင်းနေပါသည်</p>';
         return;
     }
     const today = new Date(); today.setHours(0,0,0,0);
-    const expireDate = new Date(user.expireDate);
-    if (today > expireDate) {
+    const start = new Date(user.startDate);
+    const exp = new Date(user.expireDate);
+    if (today < start) {
+        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ အကောင့်ကို ${user.startDate} မှ စတင်သုံးနိုင်ပါမည်</p>`;
+        return;
+    }
+    if (today > exp) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ (${user.expireDate})</p>`;
         return;
     }
-    const remainingDays = Math.ceil((expireDate - today) / (1000 * 60 * 60 * 24));
-    document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('practiceSection').style.display = 'block';
-    document.getElementById('previewSection').style.display = 'none';
-    document.getElementById('premiumUnlockedMsg').style.display = 'block';
-    document.getElementById('userInfo').innerHTML = `
-        <span>👤 <strong>${user.username}</strong></span>
-        <span>📅 Expires: ${user.expireDate}</span>
-        <span>⏳ ${remainingDays} days left</span>
-        <button class="logout-btn" onclick="userLogout()">Logout</button>
-    `;
-    initAllSections();
+    const remainingDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
+    // Login Success - ကျန်တဲ့ UI code ကို ယခင်အတိုင်းဆက်ထားပါ
+    // ...
 }
 function userLogout() {
     document.getElementById('loginSection').style.display = 'block';
