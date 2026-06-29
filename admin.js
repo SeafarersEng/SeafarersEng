@@ -1,30 +1,32 @@
-const ADMIN = { user: "zkp", pass: "zello@1500" };
-const STORAGE_KEY = 'mept_all_users';
+// ======================== SUBSCRIPTIONS (Hardcoded) ========================
+const subscriptions = {
+    "mts": { key: "mts@2026", startDate: "2026-06-01", expireDate: "2026-07-01", name: "mts" },
+    "student02": { key: "std02@2026", startDate: "2026-01-15", expireDate: "2026-02-15", name: "Student 02" },
+    "student03": { key: "std03@2026", startDate: "2026-02-01", expireDate: "2026-03-01", name: "Student 03" },
+    "student04": { key: "std04@2026", startDate: "2026-02-10", expireDate: "2026-03-10", name: "Student 04" },
+    "student05": { key: "std05@2026", startDate: "2026-03-01", expireDate: "2026-04-01", name: "Student 05" },
+    "student06": { key: "std06@2026", startDate: "2026-03-15", expireDate: "2026-04-15", name: "Student 06" },
+    "student07": { key: "std07@2026", startDate: "2026-04-01", expireDate: "2026-05-01", name: "Student 07" },
+    "student08": { key: "std08@2026", startDate: "2026-04-15", expireDate: "2026-05-15", name: "Student 08" },
+    "student09": { key: "std09@2026", startDate: "2026-05-01", expireDate: "2026-06-01", name: "Student 09" },
+    "student10": { key: "std10@2026", startDate: "2026-05-15", expireDate: "2026-06-15", name: "Student 10" },
+    // Admin account
+    "zkp": { key: "set1@2026", startDate: "2026-01-01", expireDate: "2030-12-31", name: "Admin" }
+};
 
-function seedSampleStudent() {
-    let users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    if (users.length === 0) {
-        users.push({
-            username: "student1",
-            password: "stu1",
-            expireDate: "2026-12-31",
-            createdAt: new Date().toISOString()
-        });
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-        return true;
-    }
-    return false;
-}
+const ADMIN = { user: "zkp", pass: "zello@1500" }; // Admin login credentials
 
+// ======================== ADMIN LOGIN ========================
 function adminLogin() {
     const u = document.getElementById('adminUsername').value.trim();
     const p = document.getElementById('adminPassword').value.trim();
     if (u === ADMIN.user && p === ADMIN.pass) {
         document.getElementById('adminAuth').style.display = 'none';
         document.getElementById('adminPanel').style.display = 'block';
-        seedSampleStudent();
-        loadUsers();
-    } else { alert('❌ Invalid credentials'); }
+        loadUsersFromSubscriptions();
+    } else {
+        alert('❌ Invalid credentials');
+    }
 }
 
 function adminLogout() {
@@ -32,41 +34,35 @@ function adminLogout() {
     document.getElementById('adminPanel').style.display = 'none';
 }
 
-function addUser() {
-    const username = document.getElementById('newUsername').value.trim();
-    const password = document.getElementById('newPassword').value.trim();
-    const expireDate = document.getElementById('expireDate').value;
-    if (!username || !password || !expireDate) { alert('⚠️ အားလုံးဖြည့်ပါ'); return; }
-    let users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    if (users.find(u => u.username === username)) { alert('⚠️ ဤ Username ရှိပြီးသားဖြစ်သည်'); return; }
-    users.push({ username, password, expireDate, createdAt: new Date().toISOString() });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-    alert('✅ ကျောင်းသားထည့်ပြီးပါပြီ');
-    document.getElementById('newUsername').value = '';
-    document.getElementById('newPassword').value = '';
-    document.getElementById('expireDate').value = '';
-    loadUsers();
+// ======================== LOAD USERS FROM SUBSCRIPTIONS ========================
+function loadUsersFromSubscriptions() {
+    const users = [];
+    for (const [username, data] of Object.entries(subscriptions)) {
+        users.push({ username, ...data });
+    }
+    displayUsers(users);
 }
 
-function deleteUser(username) {
-    if (!confirm(`"${username}" ကိုဖျက်မှာသေချာလား?`)) return;
-    let users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    users = users.filter(u => u.username !== username);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-    loadUsers();
-}
-
-function loadUsers() {
-    const users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+function displayUsers(users) {
     let html = `<h4>စုစုပေါင်း ကျောင်းသား: ${users.length} ဦး</h4>`;
-    if (users.length === 0) { html += '<p>ကျောင်းသားမရှိသေးပါ</p>'; }
-    else {
-        html += `<table><tr><th>Username</th><th>Password</th><th>Expire</th><th>Status</th><th></th></tr>`;
+    if (users.length === 0) {
+        html += '<p>ကျောင်းသားမရှိသေးပါ</p>';
+    } else {
+        html += `<table><tr><th>Username</th><th>Password</th><th>Start</th><th>Expire</th><th>Status</th></tr>`;
+        const today = new Date(); today.setHours(0,0,0,0);
         users.forEach(u => {
-            const today = new Date(); today.setHours(0,0,0,0);
+            const start = new Date(u.startDate);
             const exp = new Date(u.expireDate);
-            const status = today > exp ? '❌' : '✅';
-            html += `<tr><td>${u.username}</td><td>${u.password}</td><td>${u.expireDate}</td><td>${status}</td><td><button class="delete-btn" onclick="deleteUser('${u.username}')">Del</button></td></tr>`;
+            let status = '✅ Active';
+            if (today < start) status = '⏳ Not Started';
+            else if (today > exp) status = '❌ Expired';
+            html += `<tr>
+                <td>${u.username}</td>
+                <td>${u.key}</td>
+                <td>${u.startDate}</td>
+                <td>${u.expireDate}</td>
+                <td>${status}</td>
+            </tr>`;
         });
         html += '</table>';
     }
