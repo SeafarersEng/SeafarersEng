@@ -1,50 +1,59 @@
-// ======================== USER AUTH ========================
 const STORAGE_KEY = 'mept_all_users';
 
-// ======================== USER LOGIN (Subscriptions) ========================
-// ======================== SUBSCRIPTIONS OBJECT ========================
-const subscriptions = {
-    "mts": { key: "mts@2026", startDate: "2026-06-01", expireDate: "2026-07-01", name: "mts" },
-    // ... ကျောင်းသားအားလုံးကို ဤနေရာတွင် ထည့်ပါ
-};
-
-// ======================== USER LOGIN ========================
-function userLogin() {
+async function startExam() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
+    
     if (!username || !key) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ Username နှင့် Key ထည့်ပါ</p>';
         return;
     }
-    const user = subscriptions[username];
-    if (!user || user.key !== key) {
+
+    let user = null;
+
+    // 1. users.json မှ အရင်စစ်မယ်
+    try {
+        const response = await fetch('users.json');
+        const remoteUsers = await response.json();
+        user = remoteUsers.find(u => u.username === username && u.password === key);
+    } catch (e) {
+        console.log('users.json not available, trying localStorage...');
+    }
+
+    // 2. localStorage မှ ထပ်စစ်မယ်
+    if (!user) {
+        const localUsers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        user = localUsers.find(u => u.username === username && u.password === key);
+    }
+
+    // 3. မတွေ့ရင်
+    if (!user) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username (သို့) Key မှားယွင်းနေပါသည်</p>';
         return;
     }
-    const today = new Date(); today.setHours(0,0,0,0);
-    const start = new Date(user.startDate);
+
+    // 4. သက်တမ်းစစ်ဆေးခြင်း
+    const today = new Date(); today.setHours(0, 0, 0, 0);
     const exp = new Date(user.expireDate);
-    if (today < start) {
+    const start = user.startDate ? new Date(user.startDate) : null;
+
+    if (start && today < start) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ အကောင့်ကို ${user.startDate} မှ စတင်သုံးနိုင်ပါမည်</p>`;
         return;
     }
+
     if (today > exp) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ (${user.expireDate})</p>`;
         return;
     }
-    const remainingDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
-    // Login Success
-    document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('practiceSection').style.display = 'block';
-    document.getElementById('previewSection').style.display = 'none';
-    document.getElementById('premiumUnlockedMsg').style.display = 'block';
-    document.getElementById('userInfo').innerHTML = `
-        <span>👤 <strong>${user.username || username}</strong></span>
-        <span>📅 Expires: ${user.expireDate}</span>
-        <span>⏳ ${remainingDays} days left</span>
-        <button class="logout-btn" onclick="userLogout()">Logout</button>
-    `;
-    initAllSections();
+
+    window.currentUsername = username;
+
+    // 5. Exam Start
+    document.getElementById('examAuth').style.display = 'none';
+    document.getElementById('examContent').style.display = 'block';
+    generateRandomExam();
+    startTimer(90);
 }
 // ======================== TIMER ========================
 let timerInterval;
