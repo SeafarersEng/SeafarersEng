@@ -6,7 +6,6 @@ const subscriptions = {
     // Admin account
     "zkp": { key: "set1@2026", startDate: "2026-01-01", expireDate: "2030-12-31", name: "Admin" }
 };
-
 // ======================== ADMIN CREDENTIALS ========================
 const ADMIN = { user: "zkp", pass: "zello@1500" };
 
