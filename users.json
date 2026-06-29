@@ -1,0 +1,79 @@
+[
+  {
+    "username": "mts",
+    "password": "mts@2026",
+    "startDate": "2026-06-01",
+    "expireDate": "2026-07-01",
+    "name": "mts"
+  },
+  {
+    "username": "student02",
+    "password": "std02@2026",
+    "startDate": "2026-01-15",
+    "expireDate": "2026-02-15",
+    "name": "Student 02"
+  },
+  {
+    "username": "student03",
+    "password": "std03@2026",
+    "startDate": "2026-02-01",
+    "expireDate": "2026-03-01",
+    "name": "Student 03"
+  },
+  {
+    "username": "student04",
+    "password": "std04@2026",
+    "startDate": "2026-02-10",
+    "expireDate": "2026-03-10",
+    "name": "Student 04"
+  },
+  {
+    "username": "student05",
+    "password": "std05@2026",
+    "startDate": "2026-03-01",
+    "expireDate": "2026-04-01",
+    "name": "Student 05"
+  },
+  {
+    "username": "student06",
+    "password": "std06@2026",
+    "startDate": "2026-03-15",
+    "expireDate": "2026-04-15",
+    "name": "Student 06"
+  },
+  {
+    "username": "student07",
+    "password": "std07@2026",
+    "startDate": "2026-04-01",
+    "expireDate": "2026-05-01",
+    "name": "Student 07"
+  },
+  {
+    "username": "student08",
+    "password": "std08@2026",
+    "startDate": "2026-04-15",
+    "expireDate": "2026-05-15",
+    "name": "Student 08"
+  },
+  {
+    "username": "student09",
+    "password": "std09@2026",
+    "startDate": "2026-05-01",
+    "expireDate": "2026-06-01",
+    "name": "Student 09"
+  },
+  {
+    "username": "student10",
+    "password": "std10@2026",
+    "startDate": "2026-05-15",
+    "expireDate": "2026-06-15",
+    "name": "Student 10"
+  },
+  {
+    "username": "zkp",
+    "password": "set1@2026",
+    "startDate": "2026-01-01",
+    "expireDate": "2030-12-31",
+    "name": "Admin"
+  }
+]
