@@ -8,7 +8,6 @@ async function startExam() {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ Username နှင့် Key ထည့်ပါ</p>';
         return;
     }
-
     let user = null;
 
     // 1. users.json မှ အရင်စစ်မယ်
