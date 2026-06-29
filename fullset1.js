@@ -2,6 +2,13 @@
 const STORAGE_KEY = 'mept_all_users';
 
 // ======================== USER LOGIN (Subscriptions) ========================
+// ======================== SUBSCRIPTIONS OBJECT ========================
+const subscriptions = {
+    "mts": { key: "mts@2026", startDate: "2026-06-01", expireDate: "2026-07-01", name: "mts" },
+    // ... ကျောင်းသားအားလုံးကို ဤနေရာတွင် ထည့်ပါ
+};
+
+// ======================== USER LOGIN ========================
 function userLogin() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
@@ -26,10 +33,19 @@ function userLogin() {
         return;
     }
     const remainingDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
-    // Login Success - ကျန်တဲ့ UI code ကို ယခင်အတိုင်းဆက်ထားပါ
-    
+    // Login Success
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('practiceSection').style.display = 'block';
+    document.getElementById('previewSection').style.display = 'none';
+    document.getElementById('premiumUnlockedMsg').style.display = 'block';
+    document.getElementById('userInfo').innerHTML = `
+        <span>👤 <strong>${user.username || username}</strong></span>
+        <span>📅 Expires: ${user.expireDate}</span>
+        <span>⏳ ${remainingDays} days left</span>
+        <button class="logout-btn" onclick="userLogout()">Logout</button>
+    `;
+    initAllSections();
 }
-
 // ======================== TIMER ========================
 let timerInterval;
 function startTimer(min) {
