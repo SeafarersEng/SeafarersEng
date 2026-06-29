@@ -1,25 +1,8 @@
 // ======================== MEPT FULL SYSTEM ========================
 const STORAGE_KEY = 'mept_all_users';
 
-
-// ======================== SUBSCRIPTIONS (Student Accounts) ========================
-const subscriptions = {
-    "mts": { key: "mts@2026", startDate: "2026-06-01", expireDate: "2026-07-01", name: "mts" },
-    "student02": { key: "std02@2026", startDate: "2026-01-15", expireDate: "2026-02-15", name: "Student 02" },
-    "student03": { key: "std03@2026", startDate: "2026-02-01", expireDate: "2026-03-01", name: "Student 03" },
-    "student04": { key: "std04@2026", startDate: "2026-02-10", expireDate: "2026-03-10", name: "Student 04" },
-    "student05": { key: "std05@2026", startDate: "2026-03-01", expireDate: "2026-04-01", name: "Student 05" },
-    "student06": { key: "std06@2026", startDate: "2026-03-15", expireDate: "2026-04-15", name: "Student 06" },
-    "student07": { key: "std07@2026", startDate: "2026-04-01", expireDate: "2026-05-01", name: "Student 07" },
-    "student08": { key: "std08@2026", startDate: "2026-04-15", expireDate: "2026-05-15", name: "Student 08" },
-    "student09": { key: "std09@2026", startDate: "2026-05-01", expireDate: "2026-06-01", name: "Student 09" },
-    "student10": { key: "std10@2026", startDate: "2026-05-15", expireDate: "2026-06-15", name: "Student 10" },
-    // Admin account (can also login to practice)
-    "zkp": { key: "set1@2026", startDate: "2026-01-01", expireDate: "2030-12-31", name: "Admin" }
-};
-
-// ======================== USER LOGIN ========================
-function userLogin() {
+// ======================== USER LOGIN (users.json + localStorage) ========================
+async function userLogin() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
 
@@ -28,19 +11,35 @@ function userLogin() {
         return;
     }
 
-    const user = subscriptions[username];
+    let user = null;
 
-    if (!user || user.key !== key) {
+    // 1. users.json မှ အရင်စစ်မယ်
+    try {
+        const response = await fetch('users.json');
+        const remoteUsers = await response.json();
+        user = remoteUsers.find(u => u.username === username && u.password === key);
+    } catch (e) {
+        console.log('users.json not available, trying localStorage...');
+    }
+
+    // 2. users.json မှာမတွေ့ရင် localStorage မှ ထပ်စစ်မယ်
+    if (!user) {
+        const localUsers = JSON.parse(localStorage.getItem('mept_all_users') || '[]');
+        user = localUsers.find(u => u.username === username && u.password === key);
+    }
+
+    // 3. နှစ်ခုလုံးမှာမှ မတွေ့ရင်
+    if (!user) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username (သို့) Key မှားယွင်းနေပါသည်</p>';
         return;
     }
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const start = new Date(user.startDate);
-    const exp = new Date(user.expireDate);
+    // 4. သက်တမ်းစစ်ဆေးခြင်း
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const exp = new Date(user.expireDate || user.expireDate);
+    const start = user.startDate ? new Date(user.startDate) : null;
 
-    if (today < start) {
+    if (start && today < start) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ အကောင့်ကို ${user.startDate} မှ စတင်သုံးနိုင်ပါမည်</p>`;
         return;
     }
@@ -52,22 +51,19 @@ function userLogin() {
 
     const remainingDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
 
-    // Login Success
+    // 5. Login Success
     document.getElementById('loginSection').style.display = 'none';
     document.getElementById('practiceSection').style.display = 'block';
     document.getElementById('previewSection').style.display = 'none';
     document.getElementById('premiumUnlockedMsg').style.display = 'block';
-
     document.getElementById('userInfo').innerHTML = `
         <span>👤 <strong>${user.name || username}</strong></span>
         <span>📅 Expires: ${user.expireDate}</span>
         <span>⏳ ${remainingDays} days left</span>
         <button class="logout-btn" onclick="userLogout()">Logout</button>
     `;
-
     initAllSections();
 }
-
 // ======================== USER LOGOUT ========================
 
 function userLogout() {
