@@ -1,7 +1,7 @@
 // ======================== MEPT FULL SYSTEM ========================
 const STORAGE_KEY = 'mept_all_users';
 
-// ======================== USER LOGIN (users.json + localStorage) ========================
+// ======================== USER LOGIN (users.json + localStorage) =======================
 async function userLogin() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
