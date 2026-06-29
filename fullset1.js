@@ -1,30 +1,33 @@
 // ======================== USER AUTH ========================
 const STORAGE_KEY = 'mept_all_users';
 
-function startExam() {
+// ======================== USER LOGIN (Subscriptions) ========================
+function userLogin() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
     if (!username || !key) {
-        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ ဖြည့်ပါ</p>';
+        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ Username နှင့် Key ထည့်ပါ</p>';
         return;
     }
-    const users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    const user = users.find(u => u.username === username && u.password === key);
-        window.currentUsername = username; 
-    if (!user) {
+    const user = subscriptions[username];
+    if (!user || user.key !== key) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username (သို့) Key မှားယွင်းနေပါသည်</p>';
         return;
     }
     const today = new Date(); today.setHours(0,0,0,0);
+    const start = new Date(user.startDate);
     const exp = new Date(user.expireDate);
-    if (today > exp) {
-        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ</p>';
+    if (today < start) {
+        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ အကောင့်ကို ${user.startDate} မှ စတင်သုံးနိုင်ပါမည်</p>`;
         return;
     }
-    document.getElementById('examAuth').style.display = 'none';
-    document.getElementById('examContent').style.display = 'block';
-    generateRandomExam();
-    startTimer(90);
+    if (today > exp) {
+        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ (${user.expireDate})</p>`;
+        return;
+    }
+    const remainingDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
+    // Login Success - ကျန်တဲ့ UI code ကို ယခင်အတိုင်းဆက်ထားပါ
+    // ...
 }
 
 // ======================== TIMER ========================
