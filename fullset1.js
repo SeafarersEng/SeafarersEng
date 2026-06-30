@@ -3,52 +3,39 @@ const STORAGE_KEY = 'mept_all_users';
 async function startExam() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
-    
     if (!username || !key) {
-        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ Username နှင့် Key ထည့်ပါ</p>';
+        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ ဖြည့်ပါ</p>';
         return;
     }
-    let user = null;
 
-    // 1. users.json မှ အရင်စစ်မယ်
+    let user = null;
     try {
         const response = await fetch('users.json');
         const remoteUsers = await response.json();
         user = remoteUsers.find(u => u.username === username && u.password === key);
-    } catch (e) {
-        console.log('users.json not available, trying localStorage...');
-    }
-
-    // 2. localStorage မှ ထပ်စစ်မယ်
+    } catch (e) { console.log('users.json not available'); }
     if (!user) {
         const localUsers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         user = localUsers.find(u => u.username === username && u.password === key);
     }
-
-    // 3. မတွေ့ရင်
     if (!user) {
-        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username (သို့) Key မှားယွင်းနေပါသည်</p>';
+        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ မှားယွင်းနေပါသည်</p>';
         return;
     }
 
-    // 4. သက်တမ်းစစ်ဆေးခြင်း
-    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const today = new Date(); today.setHours(0,0,0,0);
     const exp = new Date(user.expireDate);
     const start = user.startDate ? new Date(user.startDate) : null;
-
     if (start && today < start) {
-        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ အကောင့်ကို ${user.startDate} မှ စတင်သုံးနိုင်ပါမည်</p>`;
+        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ ${user.startDate} မှ စတင်နိုင်ပါမည်</p>`;
         return;
     }
-
     if (today > exp) {
-        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ (${user.expireDate})</p>`;
+        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်ပါပြီ (${user.expireDate})</p>`;
         return;
     }
 
     window.currentUsername = username;
-
-    // 5. Exam Start
     document.getElementById('examAuth').style.display = 'none';
     document.getElementById('examContent').style.display = 'block';
     generateRandomExam();
