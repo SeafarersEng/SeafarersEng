@@ -373,8 +373,8 @@ function downloadCertificate() {
     <div style="width: 800px; margin: 0 auto; font-family: 'Inter', sans-serif; padding: 40px; background: #ffffff; border: 4px solid #0f4c75; border-radius: 20px; position: relative;">
         <div style="text-align: center; border-bottom: 2px solid #0f4c75; padding-bottom: 20px; margin-bottom: 30px;">
             <div style="font-size: 3rem;">⚓</div>
-            <h1 style="color: #0f4c75; margin: 10px 0 5px; font-size: 2rem;">Certificate of Achievement</h1>
-            <p style="color: #666; font-size: 1rem;">MEPT Mock Test Platform</p>
+           <h1 style="color: #0f4c75; margin: 10px 0 5px; font-size: 2rem;">Certificate of Participation</h1>
+            <p style="color: #666; font-size: 1rem;">MEPT Mock Test Platform <br> This is a mock test certificate for self-assessment only</p>
         </div>
         <div style="text-align: center; margin-bottom: 30px;">
             <p style="font-size: 1.2rem; color: #555;">This is to certify that</p>
