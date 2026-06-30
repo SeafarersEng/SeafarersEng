@@ -1,11 +1,8 @@
-// ======================== MEPT FULL SYSTEM ========================
 const STORAGE_KEY = 'mept_all_users';
 
-// ======================== USER LOGIN (users.json + localStorage) =======================
 async function userLogin() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
-
     if (!username || !key) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ Username နှင့် Key ထည့်ပါ</p>';
         return;
@@ -22,28 +19,26 @@ async function userLogin() {
         console.log('users.json not available, trying localStorage...');
     }
 
-    // 2. users.json မှာမတွေ့ရင် localStorage မှ ထပ်စစ်မယ်
+    // 2. localStorage မှ ထပ်စစ်မယ်
     if (!user) {
-        const localUsers = JSON.parse(localStorage.getItem('mept_all_users') || '[]');
+        const localUsers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         user = localUsers.find(u => u.username === username && u.password === key);
     }
 
-    // 3. နှစ်ခုလုံးမှာမှ မတွေ့ရင်
+    // 3. မတွေ့ရင်
     if (!user) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username (သို့) Key မှားယွင်းနေပါသည်</p>';
         return;
     }
 
-    // 4. သက်တမ်းစစ်ဆေးခြင်း
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const exp = new Date(user.expireDate || user.expireDate);
+    // 4. သက်တမ်းစစ်
+    const today = new Date(); today.setHours(0,0,0,0);
+    const exp = new Date(user.expireDate);
     const start = user.startDate ? new Date(user.startDate) : null;
-
     if (start && today < start) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ အကောင့်ကို ${user.startDate} မှ စတင်သုံးနိုင်ပါမည်</p>`;
         return;
     }
-
     if (today > exp) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ (${user.expireDate})</p>`;
         return;
