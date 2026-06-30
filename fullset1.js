@@ -661,7 +661,7 @@ function downloadCertificate() {
     <div style="width: 800px; margin: 0 auto; font-family: 'Inter', sans-serif; padding: 40px; background: #ffffff; border: 4px solid #0f4c75; border-radius: 20px; position: relative;">
         <div style="text-align: center; border-bottom: 2px solid #0f4c75; padding-bottom: 20px; margin-bottom: 30px;">
             <div style="font-size: 3rem;">⚓</div>
-            <h1 style="color: #0f4c75; margin: 10px 0 5px; font-size: 2rem;">Certificate of Achievement</h1>
+            <h1 style="color: #0f4c75; margin: 10px 0 5px; font-size: 2rem;">Certificate of Participation</h1>
             <p style="color: #666; font-size: 1rem;">MEPT Mock Test Platform <br> This is a mock test certificate for self-assessment only</p>
         </div>
 
@@ -722,10 +722,10 @@ function downloadCertificate() {
     printWindow.onafterprint = function() { printWindow.close(); };
 }
 function getGrade(pct) {
-    if (pct >= 90) return { class:'grade-excellent', emoji:'🏆', text:'Excellent! (A+)', letter:'A+' };
-    if (pct >= 80) return { class:'grade-excellent', emoji:'🌟', text:'Very Good! (A)', letter:'A' };
-    if (pct >= 70) return { class:'grade-good', emoji:'👍', text:'Good! (B)', letter:'B' };
-    if (pct >= 60) return { class:'grade-good', emoji:'✅', text:'Satisfactory (C)', letter:'C' };
-    if (pct >= 50) return { class:'grade-fair', emoji:'📚', text:'Needs Improvement (D)', letter:'D' };
-    return { class:'grade-poor', emoji:'💪', text:'Keep Studying! (F)', letter:'F' };
+    if (pct >= 90) return { class:'grade-excellent', emoji:'🏆', text:' (A+)', letter:'A+' };
+    if (pct >= 80) return { class:'grade-excellent', emoji:'🌟', text:' (A)', letter:'A' };
+    if (pct >= 70) return { class:'grade-good', emoji:'👍', text:'(B)', letter:'B' };
+    if (pct >= 60) return { class:'grade-good', emoji:'✅', text:'(C)', letter:'C' };
+    if (pct >= 50) return { class:'grade-fair', emoji:'📚', text:' (D)', letter:'D' };
+    return { class:'grade-poor', emoji:'💪', text:' (F)', letter:'F' };
 }
