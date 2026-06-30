@@ -10,11 +10,9 @@
     <meta name="apple-mobile-web-app-title" content="MEPT">
     <link rel="apple-touch-icon" href="icon-192.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-
-    <!-- ==================== ANNOUNCEMENT BAR ==================== -->
+    <!-- ==================== SCROLLING ANNOUNCEMENT BAR ==================== -->
     <div class="announcement-bar">
         <div class="announcement-text">
             <span>📢 သင်တန်းကျောင်းများ မိမိသင်တန်းအတွက် (သို့) အလုပ်အတွက် လိုအပ်သော Software များ ပြုလုပ်လိုပါက Telegram မှတစ်ဆင့် ဆက်သွယ်ပြုလုပ်နိုင်ပါသည်။ <a href="https://t.me/devppk" target="_blank">@devppk</a></span>
@@ -22,126 +20,62 @@
         </div>
     </div>
 
-    <!-- ==================== NAVBAR ==================== -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <i class="fas fa-anchor"></i> MEPT
-            </a>
-            <div class="nav-links">
-                <a href="#mocktests">Mock Tests</a>
-                <a href="#preview">Practice</a>
-                <a href="#login">Login</a>
-                <a href="admin.html" class="btn-admin">Admin</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- ==================== HERO ==================== -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>⚓ MEPT Preparation Portal</h1>
+    <header>
+        <div class="header-content">
+            <h1>⚓ MEPT Preparation Portal & Mock Test Platform</h1>
             <p>Maritime English Self-Assessment & Preparation Platform</p>
-            <a href="#mocktests" class="hero-btn">Get Started <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="hero-image">
-            <i class="fas fa-ship fa-5x"></i>
-        </div>
-    </section>
+    </header>
 
     <main class="container">
+       
 
-        <!-- ==================== MOCK TEST SECTION ==================== -->
-        <section id="mocktests" class="fullset-bar">
-            <h2>Maritime English Self-Assessment & Preparation Platform<br><span style="font-size:1.5rem;">📚 MEPT Mock Test </span></h2>
-            <div class="mock-grid">
-                <a href="fullset1.html" class="mock-card">
-                    <span class="mock-number">01</span>
-                    <h4>Mock Test 1</h4>
-                    <p>Random Questions · 90 min</p>
-                </a>
-                <a href="mocktest2.html" class="mock-card">
-                    <span class="mock-number">02</span>
-                    <h4>Mock Test 2</h4>
-                    <p>Random Questions · 90 min</p>
-                </a>
-                <a href="mocktest3.html" class="mock-card">
-                    <span class="mock-number">03</span>
-                    <h4>Mock Test 3</h4>
-                    <p>Skill Focused · 90 min</p>
-                </a>
-                <a href="mocktest4.html" class="mock-card">
-                    <span class="mock-number">04</span>
-                    <h4>Mock Test 4</h4>
-                    <p>Easy Practice · 60 min</p>
-                </a>
-                <a href="mocktest5.html" class="mock-card">
-                    <span class="mock-number">05</span>
-                    <h4>Mock Test 5</h4>
-                    <p>A2/B1 Level · 120 min</p>
-                </a>
+        <div class="fullset-bar">
+            <span class="fullset-title">📚 MEPT Mock Test Platform</span>
+            <div class="btn-group">
+                <a href="fullset1.html" class="btn-fullset">Mock Test 1</a>
+                <a href="mocktest2.html" class="btn-fullset">Mock Test 2</a>
+                <a href="mocktest3.html" class="btn-fullset">Mock Test 3</a>
+                <a href="mocktest4.html" class="btn-fullset">Mock Test 4</a>
+                <a href="mocktest5.html" class="btn-fullset">Mock Test 5</a>
             </div>
-        </section>
+        </div>
 
-        <!-- ==================== PRACTICE PREVIEW CARDS ==================== -->
-        <section id="preview" class="practice-preview-section">
-            <h2>📚 Practice Sections</h2>
-            <p class="practice-subtitle">အောက်ပါ Sections များမှ နမူနာမေးခွန်းများကို စမ်းသပ်ဖြေဆိုနိုင်ပါသည်</p>
+        <section class="preview-section" id="previewSection">
+            <h2 class="preview-title">📚 Practice Sections</h2>
+            <p class="preview-subtitle">အောက်ပါ Sections များမှ နမူနာမေးခွန်းများကို စမ်းသပ်ဖြေဆိုနိုင်ပါသည်</p>
             <div class="preview-grid">
                 <div class="preview-card" onclick="openDemo('grammar')">
-                    <div class="preview-icon"><i class="fas fa-book fa-2x"></i></div>
-                    <h3>Grammar & Vocabulary</h3>
-                    <p>Set 1 နမူနာ 20 ပုဒ် စမ်းဖြေပါ</p>
-                    <div class="preview-sample">
-                        <p><strong>Sample:</strong> "The crew ___ the deck every morning."</p>
-                        <p style="color:var(--success);">a) cleans</p>
-                    </div>
+                    <div class="preview-icon">📖</div><h3>Grammar & Vocabulary</h3><p>Set 1 နမူနာ 20 ပုဒ် စမ်းဖြေပါ</p>
+                    <div class="preview-sample"><p><strong>Sample:</strong> "The crew ___ the deck every morning."</p><p style="color:var(--success);">a) cleans</p></div>
                     <button class="preview-btn">🚀 Try Sample</button>
                 </div>
                 <div class="preview-card" onclick="openDemo('reading')">
-                    <div class="preview-icon"><i class="fas fa-newspaper fa-2x"></i></div>
-                    <h3>Reading Comprehension</h3>
-                    <p>Set 1 စာပိုဒ်များကို True/False ဖြေပါ</p>
-                    <div class="preview-sample">
-                        <p><strong>Sample:</strong> Fire drill passage</p>
-                        <p style="color:var(--success);">Q: The drill at 3:30 pm? → True</p>
-                    </div>
+                    <div class="preview-icon">📰</div><h3>Reading Comprehension</h3><p>Set 1 စာပိုဒ်များကို True/False ဖြေပါ</p>
+                    <div class="preview-sample"><p><strong>Sample:</strong> Fire drill passage</p><p style="color:var(--success);">Q: The drill at 3:30 pm? → True</p></div>
                     <button class="preview-btn">🚀 Try Sample</button>
                 </div>
                 <div class="preview-card" onclick="openDemo('listening')">
-                    <div class="preview-icon"><i class="fas fa-headphones fa-2x"></i></div>
-                    <h3>Listening Comprehension</h3>
-                    <p>Set 1 အသံဖိုင်နားထောင်ပြီး ဖြေပါ</p>
-                    <div class="preview-sample">
-                        <p><strong>Sample Audio:</strong> "Bridge to Deck..."</p>
-                        <p style="color:var(--success);">Stop chipping, prepare anchor</p>
-                    </div>
+                    <div class="preview-icon">🎧</div><h3>Listening Comprehension</h3><p>Set 1 အသံဖိုင်နားထောင်ပြီး ဖြေပါ</p>
+                    <div class="preview-sample"><p><strong>Sample Audio:</strong> "Bridge to Deck..."</p><p style="color:var(--success);">Stop chipping, prepare anchor</p></div>
                     <button class="preview-btn">🚀 Try Sample</button>
                 </div>
                 <div class="preview-card" onclick="openDemo('writing')">
-                    <div class="preview-icon"><i class="fas fa-pen fa-2x"></i></div>
-                    <h3>Writing Tasks</h3>
-                    <p>Set 1 မှ Short Message နှင့် Paragraph ရေးပါ</p>
-                    <div class="preview-sample">
-                        <p><strong>Task:</strong> Report loose refrigerator latch</p>
-                        <p style="color:var(--success);">Keywords: safety, latch, repair</p>
-                    </div>
+                    <div class="preview-icon">✍️</div><h3>Writing Tasks</h3><p>Set 1 မှ Short Message နှင့် Paragraph ရေးပါ</p>
+                    <div class="preview-sample"><p><strong>Task:</strong> Report loose refrigerator latch</p><p style="color:var(--success);">Keywords: safety, latch, repair</p></div>
                     <button class="preview-btn">🚀 Try Sample</button>
                 </div>
                 <div class="preview-card" onclick="openDemo('speaking')">
-                    <div class="preview-icon"><i class="fas fa-microphone fa-2x"></i></div>
-                    <h3>Speaking Practice</h3>
-                    <p>Set 1 မေးခွန်း 22 ခုကို စာဖြင့်ဖြေဆိုပါ</p>
-                    <div class="preview-sample">
-                        <p><strong>Q:</strong> "Your career in 10 years?"</p>
-                        <p style="color:var(--success);">Keywords: captain, officer</p>
-                    </div>
+                    <div class="preview-icon">🗣️</div><h3>Speaking Practice</h3><p>Set 1 မေးခွန်း 22 ခုကို စာဖြင့်ဖြေဆိုပါ</p>
+                    <div class="preview-sample"><p><strong>Q:</strong> "Your career in 10 years?"</p><p style="color:var(--success);">Keywords: captain, officer</p></div>
                     <button class="preview-btn">🚀 Try Sample</button>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== DEMO SECTION ==================== -->
+        <!-- ==================== SAMPLE CERTIFICATE PREVIEW ==================== -->
+        
+
         <section class="demo-section" id="demoSection" style="display:none;">
             <div class="demo-header"><button class="back-btn" onclick="closeDemo()">⬅ Back to Sections</button><h2 id="demoTitle">📖 Grammar Demo</h2></div>
             <div id="demoQuestions" class="question-container"></div>
@@ -154,43 +88,31 @@
             </div>
         </section>
 
-        <!-- ==================== LOGIN SECTION ==================== -->
-        <section id="login" class="login-section">
+        <div id="loginSection" class="login-section">
             <div class="login-card">
-                <h3><i class="fas fa-lock-open"></i> Login to Practice All Sections</h3>
-                <p style="color:var(--text-muted); margin-bottom:15px;">သင့် Username နှင့် Key ထည့်သွင်းပါ</p>
-                <div class="input-group">
-                    <label><i class="fas fa-user"></i> Username</label>
-                    <input type="text" id="loginUsername" placeholder="Enter username" class="login-input">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-key"></i> Key</label>
-                    <input type="password" id="loginKey" placeholder="Enter key" class="login-input">
-                </div>
+                <h3>🔐 Login to Practice All Sections</h3>
+                <p style="color:#666;margin-bottom:15px;">သင့် Username နှင့် Key ထည့်သွင်းပါ</p>
+                <div class="input-group"><label>👤 Username</label><input type="text" id="loginUsername" placeholder="Enter username" class="login-input"></div>
+                <div class="input-group"><label>🔑 Key</label><input type="password" id="loginKey" placeholder="Enter key" class="login-input"></div>
                 <button class="login-btn" onclick="userLogin()">🔓 Unlock All Sections</button>
-                <p style="margin-top:15px; font-size:0.85rem; color:var(--text-muted);">
-                    Account မရှိပါက <a href="https://t.me/devppk" target="_blank">@devppk</a> သို့ ဆက်သွယ်ပါ Account ဖွင့်ပြီး Username & Key ကိုအသုံးပြုနိုင်ပါသည်။
-                </p>
+                <p style="margin-top:15px;font-size:0.85rem;color:#999;">Account မရှိပါက <a href="https://t.me/devppk" target="_blank">@devppk</a> သို့ ဆက်သွယ်ပါ Account ဖွင့်ပြီး Username & Key ကိုအသုံးပြုနိုင်ပါသည်။</p>
                 <div id="loginStatus" style="margin-top:10px;"></div>
             </div>
-        </section>
+        </div>
 
-        <!-- ==================== PRACTICE SECTION (Hidden until login) ==================== -->
-        <section id="practiceSection" style="display:none;">
+        <div id="practiceSection" style="display:none;">
             <div id="userInfo" class="user-info-bar"></div>
             <div id="premiumUnlockedMsg" class="premium-unlocked-msg" style="display:none;">
                 <p>✅ <strong>Account ဖွင့်ပြီးပါပြီ။ မေးခွန်းအားလုံးကို အကန့်အသတ်မရှိ ဖြေဆိုနိုင်ပါပြီ။</strong></p>
                 <p style="font-size:0.9rem;">အကူအညီလိုပါက <a href="https://t.me/devppk" target="_blank">@devppk</a> သို့ ဆက်သွယ်ပါ။</p>
             </div>
-
             <nav class="tabs">
-                <button class="tab-btn active" data-tab="grammar"><i class="fas fa-book"></i> Grammar</button>
-                <button class="tab-btn" data-tab="reading"><i class="fas fa-newspaper"></i> Reading</button>
-                <button class="tab-btn" data-tab="writing"><i class="fas fa-pen"></i> Writing</button>
-                <button class="tab-btn" data-tab="listening"><i class="fas fa-headphones"></i> Listening</button>
-                <button class="tab-btn" data-tab="speaking"><i class="fas fa-microphone"></i> Speaking</button>
+                <button class="tab-btn active" data-tab="grammar">📖 Grammar</button>
+                <button class="tab-btn" data-tab="reading">📰 Reading</button>
+                <button class="tab-btn" data-tab="writing">✍️ Writing</button>
+                <button class="tab-btn" data-tab="listening">🎧 Listening</button>
+                <button class="tab-btn" data-tab="speaking">🗣️ Speaking</button>
             </nav>
-
             <div class="content-wrapper">
                 <!-- Grammar Tab -->
                 <div id="grammar" class="tab-content active">
@@ -239,18 +161,16 @@
                     <div id="speakingResult" class="result-box"></div>
                 </div>
             </div>
-        </section>
-
+        </div>
     </main>
 
-    <!-- ==================== FOOTER ==================== -->
     <footer>
         <div class="disclaimer-banner">
             <p>⚠️ <strong>အသိပေးချက်:</strong> MEPT Practice Portal သည် သီးခြားလေ့ကျင့်ရေး Platform တစ်ခုဖြစ်ပါသည်။ ရရှိသောရမှတ်များသည် မိမိကိုယ်ကို အကဲဖြတ်ရန်အတွက်သာ ဖြစ်ပါသည်။</p>
             <p style="font-size:0.8rem; color:#777; margin-top:5px;">MEPT Practice Portal is an independent preparation platform. Results are for self-assessment only.</p>
         </div>
-        <p><i class="fas fa-anchor"></i> MEPT Preparation Portal</p>
-        <p style="font-size:0.8rem;color:#ccc;">© 2026 Created by FYIDC | <a href="https://t.me/devppk" style="color:var(--gold);">@devppk</a></p>
+        <p>⚓ MEPT Preparation Portal</p>
+        <p style="font-size:0.8rem;color:#777;">&copy; 2026 Created by FYIDC | <a href="https://t.me/devppk" style="color:#3282b8;">@devppk</a> | <a href="admin.html" style="color:#c0392b;">Admin</a></p>
     </footer>
 
     <script src="script.js"></script>
