@@ -3,43 +3,91 @@ const STORAGE_KEY = 'mept_all_users';
 async function startExam() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
+    
     if (!username || !key) {
-        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ ဖြည့်ပါ</p>';
+        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ အချက်အလက်များ အပြည့်အစုံ ဖြည့်ပါ</p>';
         return;
     }
 
     let user = null;
+    let isRemote = false;
+
+    // ၁။ users.json (Remote) မှ အရင်စစ်ဆေးမည်
     try {
         const response = await fetch('users.json');
         const remoteUsers = await response.json();
         user = remoteUsers.find(u => u.username === username && u.password === key);
-    } catch (e) { console.log('users.json not available'); }
+        if (user) isRemote = true;
+    } catch (e) { 
+        console.log('users.json not available or failed to fetch'); 
+    }
+    
+    // ၂။ Remote မှာ မတွေ့ပါက LocalStorage မှ ထပ်စစ်မည်
     if (!user) {
         const localUsers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         user = localUsers.find(u => u.username === username && u.password === key);
     }
+    
+    // ၃။ အကောင့် လုံးဝမရှိပါက/မှားနေပါက ရပ်တန့်မည်
     if (!user) {
-        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ မှားယွင်းနေပါသည်</p>';
+        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username သို့မဟုတ် Key မှားယွင်းနေပါသည်</p>';
         return;
     }
 
-    const today = new Date(); today.setHours(0,0,0,0);
+    // ၄။ One-Time Key (တစ်ခါသုံးကုဒ်) ဟုတ်မဟုတ် နှင့် သုံးပြီးသားဖြစ်နေလား စစ်ဆေးမည်
+    if (user.isOneTime && user.used) {
+        document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ ဤ One-Time Key သည် အသုံးပြုပြီးသား ဖြစ်နေပါသည်</p>';
+        return;
+    }
+
+    // ၅။ ရက်စွဲနှင့် သက်တမ်းများကို စစ်ဆေးမည်
+    const today = new Date(); 
+    today.setHours(0,0,0,0);
     const exp = new Date(user.expireDate);
     const start = user.startDate ? new Date(user.startDate) : null;
+    
     if (start && today < start) {
-        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ ${user.startDate} မှ စတင်နိုင်ပါမည်</p>`;
+        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ စာမေးပွဲကို ${user.startDate} မှသာ စတင်ဖြေဆိုနိုင်ပါမည်</p>`;
         return;
     }
     if (today > exp) {
-        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်ပါပြီ (${user.expireDate})</p>`;
+        document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်ဆုံးသွားပါပြီ (${user.expireDate})</p>`;
         return;
     }
 
+    // ၆။ အကယ်၍ One-Time Key ဖြစ်ပြီး သုံးခွင့်ရသွားပြီဆိုလျှင် 'used: true' ဟု မှတ်သားမည်
+    if (user.isOneTime) {
+        updateLocalUserStatus(username, key);
+    }
+
+    // ၇။ Exam Screen သို့ ပို့ဆောင်မည်
     window.currentUsername = username;
     document.getElementById('examAuth').style.display = 'none';
     document.getElementById('examContent').style.display = 'block';
-    loadFixedExam();
-    startTimer(120);
+    
+    generateRandomExam();
+    startTimer(90);
+}
+
+// One-Time Key ကို အသုံးပြုပြီးကြောင်း Local Storage ထဲတွင် Update လုပ်ပေးမည့် Function
+function updateLocalUserStatus(username, key) {
+    const localUsers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const userIndex = localUsers.findIndex(u => u.username === username && u.password === key);
+    
+    if (userIndex !== -1) {
+        localUsers[userIndex].used = true;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(localUsers));
+    } else {
+        // Remote (users.json) ထဲက Key ဖြစ်နေရင်လည်း နောက်တစ်ကြိမ် ထပ်သုံးလို့မရအောင် Local ထဲမှာ 'used: true' နဲ့ သိမ်းထားလိုက်ခြင်း
+        localUsers.push({
+            username: username,
+            password: key,
+            isOneTime: true,
+            used: true,
+            expireDate: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0] // မနက်ဖြန် သက်တမ်းကုန်ထည့်ထားခြင်း
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(localUsers));
+    }
 }
 // ======================== TIMER ========================
 let timerInterval;
