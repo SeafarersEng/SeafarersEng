@@ -5,21 +5,32 @@
     "startDate": "2026-06-01",
     "expireDate": "2026-07-10",
     "name": "mts"
+    "isOneTime": false
   },
   {
     "username": "student02",
     "password": "std02@2026",
     "startDate": "2026-01-15",
-    "expireDate": "2026-02-15",
+    "expireDate": "2026-08-15",
     "name": "Student 02"
+    "isOneTime": false
   },
   {
     "username": "student03",
     "password": "std03@2026",
     "startDate": "2026-02-01",
-    "expireDate": "2026-03-01",
+    "expireDate": "2026-09-01",
     "name": "Student 03"
+       "isOneTime": false
   },
+  {
+  "username": "otk_user1",
+  "password": "secret_otk_key",
+  "startDate": "2026-07-01",
+  "expireDate": "2026-12-31",
+  "isOneTime": true,
+  "used": false
+}
   {
     "username": "student04",
     "password": "std04@2026",
