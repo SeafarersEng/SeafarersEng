@@ -1,8 +1,15 @@
+
+function testLogin() {
+    alert('Welcome! Ready for your MEPT Practice Test?');
+    userLogin();
+}
 const STORAGE_KEY = 'mept_all_users';
 
+// ======================== USER LOGIN ========================
 async function userLogin() {
     const username = document.getElementById('loginUsername').value.trim();
     const key = document.getElementById('loginKey').value.trim();
+    
     if (!username || !key) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">⚠️ Username နှင့် Key ထည့်ပါ</p>';
         return;
@@ -10,35 +17,33 @@ async function userLogin() {
 
     let user = null;
 
-    // 1. users.json မှ အရင်စစ်မယ်
     try {
         const response = await fetch('users.json');
         const remoteUsers = await response.json();
         user = remoteUsers.find(u => u.username === username && u.password === key);
     } catch (e) {
-        console.log('users.json not available, trying localStorage...');
+        console.log('users.json not available');
     }
 
-    // 2. localStorage မှ ထပ်စစ်မယ်
     if (!user) {
         const localUsers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         user = localUsers.find(u => u.username === username && u.password === key);
     }
 
-    // 3. မတွေ့ရင်
     if (!user) {
         document.getElementById('loginStatus').innerHTML = '<p style="color:red;">❌ Username (သို့) Key မှားယွင်းနေပါသည်</p>';
         return;
     }
 
-    // 4. သက်တမ်းစစ်
-    const today = new Date(); today.setHours(0,0,0,0);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
     const exp = new Date(user.expireDate);
     const start = user.startDate ? new Date(user.startDate) : null;
+
     if (start && today < start) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ အကောင့်ကို ${user.startDate} မှ စတင်သုံးနိုင်ပါမည်</p>`;
         return;
     }
+
     if (today > exp) {
         document.getElementById('loginStatus').innerHTML = `<p style="color:red;">❌ သက်တမ်းကုန်သွားပါပြီ (${user.expireDate})</p>`;
         return;
@@ -46,37 +51,67 @@ async function userLogin() {
 
     const remainingDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
 
-    // 5. Login Success
-    document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('practiceSection').style.display = 'block';
-    document.getElementById('previewSection').style.display = 'none';
-    document.getElementById('premiumUnlockedMsg').style.display = 'block';
+    // Hide login and show practice
+    try { document.getElementById('loginSection').style.display = 'none'; } catch(e) {}
+try { document.getElementById('practiceSection').style.display = 'block'; } catch(e) {}
+
+    // Hide all main page sections
+    const sectionsToHide = ['previewSection', 'practice', 'certificate', 'mocktests', 'login', 'mept-info'];
+    sectionsToHide.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
+
+    const unlockedMsg = document.getElementById('premiumUnlockedMsg');
+    if (unlockedMsg) unlockedMsg.style.display = 'block';
+
     document.getElementById('userInfo').innerHTML = `
         <span>👤 <strong>${user.name || username}</strong></span>
         <span>📅 Expires: ${user.expireDate}</span>
         <span>⏳ ${remainingDays} days left</span>
-        <button class="logout-btn" onclick="userLogout()">Logout</button>
+         <button class="logout-btn" onclick="userLogout()">Logout</button>
     `;
     initAllSections();
 }
-// ======================== USER LOGOUT ========================
 
+// ======================== USER LOGOUT ========================
 function userLogout() {
-    document.getElementById('loginSection').style.display = 'block';
-    document.getElementById('practiceSection').style.display = 'none';
-    document.getElementById('previewSection').style.display = 'block';
-    document.getElementById('premiumUnlockedMsg').style.display = 'none';
-    document.getElementById('loginUsername').value = '';
-    document.getElementById('loginKey').value = '';
-    document.getElementById('loginStatus').innerHTML = '';
+    // Practice Section ကို ဖျောက်မယ်
+    const practiceSection = document.getElementById('practiceSection');
+    if (practiceSection) practiceSection.style.display = 'none';
+    
+    // Login Section ကို ပြန်ပြမယ်
+    const loginSection = document.getElementById('loginSection');
+    if (loginSection) loginSection.style.display = 'block';
+    
+    // Main Page Sections တွေ ပြန်ပြမယ်
+    const sectionsToShow = ['practice', 'certificate', 'mocktests'];
+    sectionsToShow.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'block';
+    });
+    
+    // Premium Unlocked Message ကို ဖျောက်မယ်
+    const unlockedMsg = document.getElementById('premiumUnlockedMsg');
+    if (unlockedMsg) unlockedMsg.style.display = 'none';
+    
+    // Login Form Input တွေ ရှင်းမယ်
+    const loginUsername = document.getElementById('loginUsername');
+    const loginKey = document.getElementById('loginKey');
+    if (loginUsername) loginUsername.value = '';
+    if (loginKey) loginKey.value = '';
+    
+    // Login Status ရှင်းမယ်
+    const loginStatus = document.getElementById('loginStatus');
+    if (loginStatus) loginStatus.innerHTML = '';
 }
+// ======================== INIT ALL SECTIONS ========================
 function initAllSections() {
-    ['grammar','reading','writing','listening','speaking'].forEach(s => {
+    ['grammar', 'reading', 'writing', 'listening', 'speaking'].forEach(s => {
         generateSetButtons(s);
         backToSets(s);
     });
 }
-
 // ======================== DATA (Set 1 sample - extend for other sets) ========================
 const grammarData = {
     1: { questions: [
@@ -762,11 +797,16 @@ function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
 // ======================== DEMO SYSTEM ========================
 function openDemo(section) {
-    document.getElementById('previewSection').style.display = 'none';
+    // previewSection အစား practice, certificate, mocktests id တွေကို ဖျောက်ပါ
+    try { document.getElementById('practice').style.display = 'none'; } catch(e) {}
+    try { document.getElementById('certificate').style.display = 'none'; } catch(e) {}
+    try { document.getElementById('mocktests').style.display = 'none'; } catch(e) {}
+    
     document.getElementById('demoSection').style.display = 'block';
     const data = demoData[section];
     document.getElementById('demoTitle').textContent = data.title;
     let html = '';
+    // ... ကျန်တဲ့ code အတိုင်းဆက်ပါ (အောက်က if...else တွေ အကုန်ဆက်ထားပါ)
     if (section === 'grammar') {
         html = `<h4>Grammar Demo</h4>`;
         data.questions.forEach((q, i) => {
@@ -933,11 +973,13 @@ document.getElementById('demoSubmitBtn').addEventListener('click', () => {
     document.getElementById('demoSubmitBtn').style.display = 'none';
     document.getElementById('demoResult').scrollIntoView({ behavior: 'smooth' });
 });
-
 function closeDemo() {
     document.getElementById('demoSection').style.display = 'none';
-    document.getElementById('previewSection').style.display = 'block';
-    document.getElementById('previewSection').scrollIntoView({ behavior: 'smooth' });
+    
+    // previewSection အစား practice, certificate, mocktests id တွေကို ပြန်ပြပါ
+    try { document.getElementById('practice').style.display = 'block'; } catch(e) {}
+    try { document.getElementById('certificate').style.display = 'block'; } catch(e) {}
+    try { document.getElementById('mocktests').style.display = 'block'; } catch(e) {}
 }
 
 // ======================== EVENT BINDINGS ========================
@@ -959,3 +1001,45 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 window.onload = () => {
     document.getElementById('grammarSetSelection').style.display = 'block';
 };
+// ======================== TAB SWITCHING ========================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active from all tabs
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        // Add active to clicked tab
+        btn.classList.add('active');
+        
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(t => {
+            t.classList.remove('active');
+            t.style.display = 'none';
+        });
+        
+        // Show clicked tab content
+        const tabId = btn.getAttribute('data-tab');
+        const tabContent = document.getElementById(tabId);
+        if (tabContent) {
+            tabContent.classList.add('active');
+            tabContent.style.display = 'block';
+            
+            // Generate Set Buttons for this tab
+            generateSetButtons(tabId);
+            // Show Set Selection, hide questions
+            backToSets(tabId);
+        }
+    });
+});
+
+function backToSets(section) {
+    const setSelection = document.getElementById(`${section}SetSelection`);
+    const questions = document.getElementById(`${section}Questions`);
+    const backBtn = document.getElementById(`${section}BackBtn`);
+    const submitBtn = document.getElementById(`submit${capitalize(section)}Btn`);
+    const result = document.getElementById(`${section}Result`);
+    
+    if (setSelection) setSelection.style.display = 'block';
+    if (questions) questions.style.display = 'none';
+    if (backBtn) backBtn.style.display = 'none';
+    if (submitBtn) submitBtn.style.display = 'none';
+    if (result) result.innerHTML = '';
+}
