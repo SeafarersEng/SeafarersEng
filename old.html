@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEPT Old Question လေ့လာကြမယ်</title>
+  <link rel="stylesheet" href="old.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="loginScreen" class="screen active">
+    <div class="login-container">
+      <h1>🔐 MEPT လေ့လာကြမယ်</h1>
+      <p>ဝင်ရောက်ရန် သော့ (Key) ထည့်ပါ။<br><small>1 Key = 1 User = 1 Device</small></p>
+      <input type="text" id="keyInput" placeholder="သော့ (Key) ထည့်ပါ...">
+      <button onclick="login()">ဝင်မည်</button>
+      <p id="loginError" class="error"></p>
+      <hr>
+      <p style="font-size:14px; color:#888;">Demo Keys (စမ်းသုံးရန်): <br> 
+
+      </p>
+    </div>
+  </div>
+
+  <!-- Main App Screen -->
+  <div id="appScreen" class="screen">
+    <div class="header">
+      <h2>📚 MEPT Old Questions</h2>
+      <div>
+        <span id="currentUser" class="badge"></span>
+        <button onclick="logout()" class="logout-btn">ထွက်မည်</button>
+      </div>
+    </div>
+
+    <!-- Batch Exam Filter -->
+    <div class="filter-section">
+      <button class="filter-btn active" data-batch="all">အားလုံး</button>
+      <button class="filter-btn" data-batch="7m_exam1">7M Exam 1</button>
+      <button class="filter-btn" data-batch="7m_exam2">7M Exam 2</button>
+      <button class="filter-btn" data-batch="7m_exam3">7M Exam 3</button>
+       <button class="filter-btn" data-batch="7m_exam4">7M Exam 4</button>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="category-filter">
+      <button class="cat-btn active" data-category="all">အားလုံး</button>
+      <button class="cat-btn" data-category="personal">👤 ကိုယ်ရေး</button>
+      <button class="cat-btn" data-category="safety">🛡️ လုံခြုံရေး</button>
+      <button class="cat-btn" data-category="debate">💬 ဆွေးနွေးခြင်း</button>
+      <button class="cat-btn" data-category="writing">✍️ အရေးအသား</button>
+      <button class="cat-btn" data-category="speaking">🎤 စကားပြော</button>
+    </div>
+
+    <!-- Questions List -->
+    <div id="questionList" class="question-list">
+      <!-- Render by JS -->
+    </div>
+  </div>
+
+  <script src="old.js"></script>
+</body>
+</html>
